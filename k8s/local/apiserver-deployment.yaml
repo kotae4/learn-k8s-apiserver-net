@@ -24,5 +24,5 @@ spec:
           - configMapRef:
               name: apiserver-env
           ports:
-            - containerPort: 27525
+            - containerPort: 8080
               name: apiport

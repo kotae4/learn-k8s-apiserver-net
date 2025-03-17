@@ -69,3 +69,11 @@ docker run -d --network learn-k8s-network -p 23306:3306 --name mysqldb --hostnam
 5. Copy the votingApi directory back into `learn-k8s-webapp` directory
 6. Remove all code dealing with multiprocessing in `votingApi/api_client.py` if needed (AWS Lambdas)
 7. Open `votingApi/configuration.py` and make sure the host matches expectations (default: `http://api.testing.private:27525`)
+
+## Kubernetes Debugging
+
+Start an interactive pod (busybox image has ping and netcat installed):
+kubectl run -i --tty --rm debug --image=busybox --restart=Never --namespace learn-k8s-apiserver -- sh
+
+Test MySQL connection:
+kubectl run -i --tty --rm debugsql --image=mysql --restart=Never --namespace learn-k8s-apiserver -- mysql --host=externaldb --port=23306 --user=badmin --password=vagrant --database=appdb --execute="SHOW TABLES;"
